@@ -1,91 +1,60 @@
 from datetime import datetime
 from datetime import timedelta
 
-def DateInput(e = 1):
+def DateInput(error = 1):
     """Function to verify that the date inserted is a valid one:
-        - in the right form
-        - numbers
-        - in the future
-        - an existing day """
-    # the variable e represents errors. If e=1 then there was an error and the
-    # date inserted was not valid. A new input is required.
-    while(e == 1):
+        i.e. in the right form, in numbers, in the future and an existing day 
+    """
+    """variable 'error' represents if the date is correct (= 0) or not (= 1)
+        - error starts = 0
+        - error becomes = 1 if an error is spotted
+        - while loop runs as long as errors in the input are found.
+    """
+    while(error == 1):
+        error = 0
+            
+        # check if input is in the right form
         try:
-            # check if input is in the righ form
             day, month, year = input("Please insert the date in the form of dd-mm-yyyy: ").split("-")
-            # check if input is all numbers
-            if( not(day.isdigit() and month.isdigit() and year.isdigit()) ):
-                print("You should only insert numbers.")
-            else:
+        except:
+            error = 1
+            print("You inserted a date in an invalid format.")
+        
+        # check if only numbers are provided
+        if(error == 0):
+            if( day.isdigit() and month.isdigit() and year.isdigit() ):
                 day = int(day)
                 month = int(month)
                 year = int(year)
+            else:
+                error = 1
+                print("You should only insert numbers.")
 
-                try:
-                    # check if input is a suitable date
-                    date = datetime(day = day, month = month, year = year)
-                    # check if the date is in the future
-                    if (date < datetime.now()):
-                        e = 0
-                    else:
-                        print("The date inserted should be in the past")
-                except:
-                    print(f"The date {day}/{month}/{year} is not valid.")
-        except:
-            print("You inserted a date in an invalid format.")
+        # check if the input is a valid date
+        if(error == 0):
+            try:
+                date = datetime(day = day, month = month, year = year)
+            except:
+                error = 1
+                print(f"The date {day}/{month}/{year} is not valid.")
+
+        # check if the date is in the past
+        if(error == 0):
+            if ( not (date < datetime.now()) ):
+                error = 1
+                print("The date inserted should be in the past")
+
 
     date = [day, month, year]
     return date
-
-def DateInput2(day=0, month=0, year=0):
-    """Function to verify that the date inserted is a valid one:
-        - in the right form
-        - numbers
-        - in the future
-        - an existing day """
-
-    # check if input is in the right form
-    try:
-        day, month, year = input("Please insert the date in the form of dd/mm/yyyy: ").split("/")
-    except:
-        print("You inserted an invalid date.")
-        return False
-
-    # check if only numbers are provided
-    if( not(day.isdigit() and month.isdigit() and year.isdigit()) ):
-        print("You should only insert numbers.")
-        return False
-    else:
-        day = int(day)
-        month = int(month)
-        year = int(year)
-
-    # check if the input is in the past.
-    today = datetime.now()
-    if(year > today.year):
-        print("You should put a date in the future")
-        return False
-    elif( (year == today.year) and (month > today.month) ):
-        print("You should put a date in the future")
-        return False
-    elif( (year == today.year) and (month == today.month) and (day > today.day) ):
-        print("You should put a date in the future")
-        return False
-
-    # check if the input is a valid date
-    try:
-        datetime(day = day, month = month, year = year)
-        return True
-    except:
-        print(f"The date {day}/{month}/{year} is not valid.")
-        return False
 
 
 print("WELCOME IN THE PROGRAM.")
 today = datetime.now()
 print(f"Today is the {today.day}/{today.month}/{today.year}")
 
-DateInput()
+date = DateInput()
+print(f"The date inserted is {date[0]}/{date[1]}/{date[2]}.")
 
 
 
