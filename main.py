@@ -44,21 +44,30 @@ def DateInput(error = 1):
                 error = 1
                 print("The date inserted should be in the past")
 
-
-    date = [day, month, year]
     return date
 
 if __name__ == "__main__":
     print("WELCOME IN THE PROGRAM.")
     today = datetime.now()
-    print(f"Today is the {today.day}/{today.month}/{today.year}")
+    print(f"Today is the {today.day}/{today.month}/{today.year}\n")
 
     date = DateInput()
     print(f"The date inserted is {date[0]}/{date[1]}/{date[2]}.\n")
 
-    yn = input("Would you like the program to consider also the time of the event? y/n: ")
+    print("Would you like the program to consider also the time of the event?") 
+    print(f"If no then the program will consider {date[0]}/{date[1]}/{date[2]} 12:00am as the starting date.")
+    timeAnswer = input("Answer by y/n: ")
 
+    while(timeAnswer not in ["y", "n", "Y", "N"]):
+        timeAnswer = input("Please insert a valid answer y/n: ")
 
+    if(timeAnswer==y):
+        pass
+
+    date = date.replace(hour=hour, minute=minute)
+    print(f"Good, the date considered will be: ")
+
+    
 
 
 
