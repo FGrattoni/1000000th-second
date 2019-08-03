@@ -48,13 +48,17 @@ def DateInput(error = 1):
     date = [day, month, year]
     return date
 
+if __name__ == "__main__":
+    print("WELCOME IN THE PROGRAM.")
+    today = datetime.now()
+    print(f"Today is the {today.day}/{today.month}/{today.year}")
 
-print("WELCOME IN THE PROGRAM.")
-today = datetime.now()
-print(f"Today is the {today.day}/{today.month}/{today.year}")
+    date = DateInput()
+    print(f"The date inserted is {date[0]}/{date[1]}/{date[2]}.\n")
 
-date = DateInput()
-print(f"The date inserted is {date[0]}/{date[1]}/{date[2]}.")
+    yn = input("Would you like the program to consider also the time of the event? y/n: ")
+
+
 
 
 
