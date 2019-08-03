@@ -1,7 +1,43 @@
 from datetime import datetime
 from datetime import timedelta
 
-def DateInput(day=0, month=0, year=0):
+def DateInput(e = 1):
+    """Function to verify that the date inserted is a valid one:
+        - in the right form
+        - numbers
+        - in the future
+        - an existing day """
+    # the variable e represents errors. If e=1 then there was an error and the
+    # date inserted was not valid. A new input is required.
+    while(e == 1):
+        try:
+            # check if input is in the righ form
+            day, month, year = input("Please insert the date in the form of dd-mm-yyyy: ").split("-")
+            # check if input is all numbers
+            if( not(day.isdigit() and month.isdigit() and year.isdigit()) ):
+                print("You should only insert numbers.")
+            else:
+                day = int(day)
+                month = int(month)
+                year = int(year)
+
+                try:
+                    # check if input is a suitable date
+                    date = datetime(day = day, month = month, year = year)
+                    # check if the date is in the future
+                    if (date < datetime.now()):
+                        e = 0
+                    else:
+                        print("The date inserted should be in the past")
+                except:
+                    print(f"The date {day}/{month}/{year} is not valid.")
+        except:
+            print("You inserted a date in an invalid format.")
+
+    date = [day, month, year]
+    return date
+
+def DateInput2(day=0, month=0, year=0):
     """Function to verify that the date inserted is a valid one:
         - in the right form
         - numbers
@@ -49,9 +85,7 @@ print("WELCOME IN THE PROGRAM.")
 today = datetime.now()
 print(f"Today is the {today.day}/{today.month}/{today.year}")
 
-while(True):
-    if(DateInput()):
-        break
+DateInput()
 
 
 
